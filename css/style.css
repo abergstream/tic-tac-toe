@@ -15,12 +15,12 @@ body {
   margin: 0;
 }
 .gameboard {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
   width: 600px;
 }
-.gameboard__brick {
+.gameboard__tile {
   background-color: #24353f;
   aspect-ratio: 1 / 1;
   border-radius: 1rem;
@@ -38,4 +38,36 @@ body {
 .gameboard__o {
   color: #e4bb60;
   font-size: 14rem;
+}
+.players {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  width: 500px;
+  height: 500px;
+  background-color: #24353f;
+}
+.players__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.players__play-input {
+  width: 50%;
+  border: 0;
+  outline: none;
+}
+.players__play-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  gap: 3rem;
+}
+.players__play-icon {
+  width: 50px;
 }
