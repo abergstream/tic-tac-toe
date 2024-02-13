@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+body {
+  background-color: #1d2a32;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100svh;
+  margin: 0;
+}
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  width: 600px;
+}
+.gameboard__brick {
+  background-color: #24353f;
+  aspect-ratio: 1 / 1;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 5px #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat;
+  font-weight: 800;
+}
+.gameboard__x {
+  color: #63c4bc;
+  font-size: 12rem;
+}
+.gameboard__o {
+  color: #e4bb60;
+  font-size: 14rem;
+}
