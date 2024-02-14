@@ -186,6 +186,9 @@ body {
   body {
     margin: 2rem;
   }
+  .gameboard {
+    gap: 1.5rem;
+  }
   .gameboard__tile {
     font-size: 7rem;
   }
