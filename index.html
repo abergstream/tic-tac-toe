@@ -8,6 +8,29 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <section id="gameInfo" class="game-info">
+      <div class="game-info__symbols">
+        <span class="symbols--x">X</span>
+        <span class="symbols--o">O</span>
+      </div>
+      <div class="game-info__turn-container">
+        <span class="game-info__turn symbols--x" id="playerTurn">X</span>
+        Turn
+      </div>
+      <div class="game-info__restart">
+        <svg
+          id="restartGame"
+          class="game-info__restart-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <title>New match</title>
+          <path
+            d="M2 12C2 16.97 6.03 21 11 21C13.39 21 15.68 20.06 17.4 18.4L15.9 16.9C14.63 18.25 12.86 19 11 19C4.76 19 1.64 11.46 6.05 7.05C10.46 2.64 18 5.77 18 12H15L19 16H19.1L23 12H20C20 7.03 15.97 3 11 3C6.03 3 2 7.03 2 12Z"
+          />
+        </svg>
+      </div>
+    </section>
     <div id="gameboard" class="gameboard"></div>
     <div id="players" class="players">
       <form id="playersForm" class="players__form">
@@ -28,5 +51,20 @@
         </button>
       </form>
     </div>
+
+    <section id="gameStats" class="game-stats">
+      <div class="game-stats__player-x">
+        <div id="playerXInfo">X (player1)</div>
+        <span class="game-stats__value" id="playerXValue">0</span>
+      </div>
+      <div class="game-stats__player-ties">
+        <div>TIES</div>
+        <span class="game-stats__value" id="tiesValue">0</span>
+      </div>
+      <div class="game-stats__player-o">
+        <div id="playerOInfo">O (player2)</div>
+        <span class="game-stats__value" id="playerOValue">0</span>
+      </div>
+    </section>
   </body>
 </html>

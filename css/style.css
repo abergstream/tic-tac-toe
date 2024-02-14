@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+:root {
+  --width: min(500px, 100%);
+  --grid-gap: 3rem;
+  --shadow: 0px 4px 5px #000;
+}
 * {
   box-sizing: border-box;
 }
@@ -9,35 +14,85 @@ html {
 body {
   background-color: #1d2a32;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100svh;
+  gap: 2rem;
   margin: 0;
+  font-family: Montserrat;
+  font-weight: 600;
+}
+.game-info {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  width: var(--width);
+  gap: var(--grid-gap);
+}
+.game-info__symbols {
+  font-weight: 800;
+  font-size: 3.5rem;
+}
+.symbols--x {
+  color: #63c4bc;
+  font-weight: 800;
+}
+.symbols--o {
+  color: #e4bb60;
+  font-weight: 800;
+}
+.game-info__turn-container {
+  background-color: #24353f;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  gap: 1rem;
+  font-size: 1.6rem;
+  color: #abbec9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.game-info__turn {
+  font-size: 2rem;
+  font-weight: 800;
+}
+.game-info__restart {
+  display: flex;
+  justify-content: flex-end;
+}
+.game-info__restart-icon {
+  width: 55px;
+  background-color: #abbec9;
+  border-radius: 1rem;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 4px #778691;
 }
 .gameboard {
   display: none;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  width: 600px;
+  gap: var(--grid-gap);
+  width: var(--width);
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 .gameboard__tile {
   background-color: #24353f;
   aspect-ratio: 1 / 1;
   border-radius: 1rem;
-  box-shadow: 0px 4px 5px #000;
+  box-shadow: var(--shadow);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Montserrat;
   font-weight: 800;
+  font-size: 12rem;
 }
 .gameboard__x {
   color: #63c4bc;
-  font-size: 12rem;
 }
 .gameboard__o {
   color: #e4bb60;
-  font-size: 14rem;
 }
 .players {
   display: flex;
@@ -47,6 +102,8 @@ body {
   width: 500px;
   height: 500px;
   background-color: #24353f;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
 }
 .players__form {
   display: flex;
@@ -56,18 +113,80 @@ body {
   gap: 2rem;
 }
 .players__play-input {
-  width: 50%;
-  border: 0;
+  width: min(300px, 100%);
+  border: 1px solid transparent;
   outline: none;
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow);
+  background-color: rgba(86, 125, 161, 0.5);
+  font-size: 2rem;
+  border-radius: 1rem;
+  font-weight: bold;
 }
 .players__play-button {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 200px;
-  height: 50px;
   gap: 3rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 0;
+  box-shadow: var(--shadow);
+  background-color: rgba(0, 255, 255, 0.5);
+  font-size: 1.6rem;
 }
 .players__play-icon {
   width: 50px;
+  fill: #0ff;
+}
+
+.game-stats {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  width: var(--width);
+  gap: var(--grid-gap);
+  font-size: 1.6rem;
+  font-weight: 600;
+  height: 8rem;
+}
+
+.game-stats__player-x {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(49, 196, 190);
+  border-radius: 10px;
+}
+
+.game-stats__player-ties {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(168, 190, 201);
+  border-radius: 10px;
+}
+
+.game-stats__player-o {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(242, 178, 55);
+  border-radius: 10px;
+}
+
+.game-stats__value {
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+@media screen and (max-width: 500px) {
+  body {
+    margin: 2rem;
+  }
+  .gameboard__tile {
+    font-size: 7rem;
+  }
 }
