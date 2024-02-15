@@ -99,22 +99,19 @@ function printGameInfo() {
   const playerOInfo = document.getElementById("playerOInfo");
   let playerXName;
   let playerOName;
-  console.log("Första steget");
+
   if (checkGame) {
-    console.log("Det finns spel");
     playerXName = Game.players.playerX;
     playerOName = Game.players.playerO;
     playerXValue.textContent = Game.results.playerX;
     tiesValue.textContent = Game.results.tie;
     playerOValue.textContent = Game.results.playerO;
   } else {
-    console.log("INGET spel");
     playerXName = playerX.value;
     playerOName = playerO.value;
   }
 
   if (playerXName && playerOName) {
-    console.log("NAMN FINNS");
     playersForm.style.display = "none";
     playerXInfo.textContent = `X (${playerXName})`;
     playerOInfo.textContent = `O (${playerOName})`;
@@ -127,8 +124,12 @@ function printGameInfo() {
     gameStats.style.display = "grid";
     renderGameboard();
   } else {
-    playerX.value === "" ? (playerX.style.borderColor = "red") : "";
-    playerO.value === "" ? (playerO.style.borderColor = "red") : "";
+    playerX.value === ""
+      ? playerX.classList.add("players__play-input--error")
+      : playerX.classList.remove("players__play-input--error");
+    playerO.value === ""
+      ? playerO.classList.add("players__play-input--error")
+      : playerO.classList.remove("players__play-input--error");
   }
 }
 
@@ -151,7 +152,6 @@ function renderGameboard() {
   if (finishedGame) {
     // Checks if there was a winner
     if (winRow) {
-      console.log(winRow);
       // Change background for the winning row
       winRow.forEach((tileNumber) => {
         const tileDiv = document.getElementById(`tile_${tileNumber}`);
@@ -251,8 +251,8 @@ checkValue(playerO);
 function checkValue(player) {
   player.addEventListener("keyup", () => {
     player.value === ""
-      ? (player.style.borderColor = "red")
-      : (player.style.borderColor = "transparent");
+      ? player.classList.add("players__play-input--error")
+      : player.classList.remove("players__play-input--error");
   });
 }
 
