@@ -3,6 +3,8 @@
   --width: min(500px, 100%);
   --grid-gap: 3rem;
   --shadow: 0px 4px 5px #000;
+  --x-color: #63c4bc;
+  --o-color: #e4bb60;
 }
 * {
   box-sizing: border-box;
@@ -34,11 +36,11 @@ body {
   font-size: 3.5rem;
 }
 .symbols--x {
-  color: #63c4bc;
+  color: var(--x-color);
   font-weight: 800;
 }
 .symbols--o {
-  color: #e4bb60;
+  color: var(--o-color);
   font-weight: 800;
 }
 .game-info__turn-container {
@@ -67,6 +69,7 @@ body {
   padding: 0.8rem 1rem;
   box-shadow: 0 4px #778691;
 }
+
 .gameboard {
   display: none;
   grid-template-columns: repeat(3, 1fr);
@@ -89,13 +92,13 @@ body {
   font-size: 12rem;
 }
 .gameboard__x {
-  color: #63c4bc;
+  color: var(--x-color);
 }
 .gameboard__o {
-  color: #e4bb60;
+  color: var(--o-color);
 }
 .players {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
@@ -177,10 +180,45 @@ body {
   background-color: rgb(242, 178, 55);
   border-radius: 10px;
 }
-
 .game-stats__value {
   font-size: 2.6rem;
   font-weight: 700;
+}
+.win-banner {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 300px;
+  background-color: rgba(35, 53, 64, 0.9);
+  box-shadow: 4px 4px 10px #000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.win-banner__button-container {
+  display: flex;
+  gap: 1.5rem;
+}
+.win-banner__button {
+  border-radius: 1rem;
+  border: 0;
+  padding: 1.6rem;
+  font-family: Montserrat;
+  font-weight: 700;
+  background-color: #abbec9;
+  box-shadow: 0 4px #778691;
+  color: #24353f;
+}
+.win-banner_o-win {
+  background-color: var(--x-color);
+  box-shadow: 0 4px #3e7873;
+}
+.win-banner_x-win {
+  background-color: var(--o-color);
+  box-shadow: 0 4px #bc8e00;
 }
 @media screen and (max-width: 500px) {
   body {

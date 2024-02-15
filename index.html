@@ -34,8 +34,18 @@
     <div id="gameboard" class="gameboard"></div>
     <div id="players" class="players">
       <form id="playersForm" class="players__form">
-        <input id="player1" class="players__play-input" type="text" />
-        <input id="player2" class="players__play-input" type="text" />
+        <input
+          id="playerX"
+          class="players__play-input"
+          type="text"
+          placeholder="Player 1"
+        />
+        <input
+          id="playerO"
+          class="players__play-input"
+          type="text"
+          placeholder="Player 2"
+        />
         <button class="players__play-button" type="submit" id="submitPlayers">
           <svg
             class="players__play-icon"
@@ -54,7 +64,7 @@
 
     <section id="gameStats" class="game-stats">
       <div class="game-stats__player-x">
-        <div id="playerXInfo">X (player1)</div>
+        <div id="playerXInfo">X ()</div>
         <span class="game-stats__value" id="playerXValue">0</span>
       </div>
       <div class="game-stats__player-ties">
@@ -62,9 +72,22 @@
         <span class="game-stats__value" id="tiesValue">0</span>
       </div>
       <div class="game-stats__player-o">
-        <div id="playerOInfo">O (player2)</div>
+        <div id="playerOInfo">O ()</div>
         <span class="game-stats__value" id="playerOValue">0</span>
       </div>
+    </section>
+    <section id="winBanner" class="win-banner">
+      <h3>YOU WON!</h3>
+      <h2><span id="winnerSymbol">X</span> TAKES THE ROUND</h2>
+      <aside class="win-banner__button-container">
+        <button
+          id="quitGame"
+          class="win-banner__button win-banner__button-quit"
+        >
+          QUIT
+        </button>
+        <button id="nextRound" class="win-banner__button">NEXT ROUND</button>
+      </aside>
     </section>
   </body>
 </html>

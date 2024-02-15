@@ -1,16 +1,13 @@
-const Game = {
-  gameboard: ["", "", "", "", "", "", "", "", ""],
-  players: {
-    player1: "",
-    player2: "",
-  },
-  results: {
-    player1: 0,
-    tie: 0,
-    player2: 0,
-  },
-  turns: 0,
-};
+// TODO
+// Lägga in rätt färg på knappen i winBanner
+// Styla winBanner
+// Lägga till winBanner för TIED-GAME
+// Se över resetknappen
+
+// Sist av allt
+// Se över responsivitet
+// Se över js-koden
+
 const gameboard = document.getElementById("gameboard");
 const submitPlayers = document.getElementById("playersForm");
 const playersForm = document.getElementById("players");
@@ -18,30 +15,122 @@ const gameInfo = document.getElementById("gameInfo");
 const gameStats = document.getElementById("gameStats");
 const playerTurn = document.getElementById("playerTurn");
 const restartGame = document.getElementById("restartGame");
-restartGame.addEventListener("click", resetGame);
+const tiesValue = document.getElementById("tiesValue");
+const playerXValue = document.getElementById("playerXValue");
+const playerOValue = document.getElementById("playerOValue");
+const quitGame = document.getElementById("quitGame");
+const nextRound = document.getElementById("document");
+document.getElementById("quitGame").addEventListener("click", () => {
+  winBanner.style.display = "none";
+  gameInfo.style.display = "none";
+  gameboard.style.display = "none";
+  gameStats.style.display = "none";
 
+  localStorage.removeItem("Game");
+  winRow = "";
+  finishedGame = false;
+  Game = {
+    gameboard: ["", "", "", "", "", "", "", "", ""],
+    players: {
+      playerX: "",
+      playerO: "",
+    },
+    results: {
+      playerX: 0,
+      tie: 0,
+      playerO: 0,
+    },
+    turns: 0,
+  };
+
+  playersForm.style.display = "grid";
+});
+document.getElementById("nextRound").addEventListener("click", () => {
+  winBanner.style.display = "none";
+  Game.gameboard = ["", "", "", "", "", "", "", "", ""];
+  finishedGame = false;
+  renderGameboard();
+});
+
+let winRow = "";
+restartGame.addEventListener("click", resetGame);
 let finishedGame = false;
+let Game;
+// localStorage.removeItem("Game");
+const checkGame = localStorage.getItem("Game");
+
+if (checkGame) {
+  Game = JSON.parse(checkGame);
+  Game.gameboard = ["", "", "", "", "", "", "", "", ""];
+  gameInfo.style.display = "grid";
+  gameboard.style.display = "grid";
+  gameStats.style.display = "grid";
+  printGameInfo();
+} else {
+  Game = {
+    gameboard: ["", "", "", "", "", "", "", "", ""],
+    players: {
+      playerX: "",
+      playerO: "",
+    },
+    results: {
+      playerX: 0,
+      tie: 0,
+      playerO: 0,
+    },
+    turns: 0,
+  };
+  playersForm.style.display = "grid";
+}
+
 // gameStats,gameInfo,gameboard
 submitPlayers.addEventListener("submit", (e) => {
   e.preventDefault();
-  const player1 = document.getElementById("player1");
-  const player2 = document.getElementById("player2");
+  printGameInfo();
+});
+
+// Funktion som kollar skriver ut namn och resultat enligt ovan ^---
+//  men kollar om det finns info i localstorage och isåfall tar den infon
+
+function printGameInfo() {
+  const playerX = document.getElementById("playerX");
+  const playerO = document.getElementById("playerO");
   const playerXInfo = document.getElementById("playerXInfo");
   const playerOInfo = document.getElementById("playerOInfo");
-  if (player1.value && player2.value) {
+  let playerXName;
+  let playerOName;
+  console.log("Första steget");
+  if (checkGame) {
+    console.log("Det finns spel");
+    playerXName = Game.players.playerX;
+    playerOName = Game.players.playerO;
+    playerXValue.textContent = Game.results.playerX;
+    tiesValue.textContent = Game.results.tie;
+    playerOValue.textContent = Game.results.playerO;
+  } else {
+    console.log("INGET spel");
+    playerXName = playerX.value;
+    playerOName = playerO.value;
+  }
+
+  if (playerXName && playerOName) {
+    console.log("NAMN FINNS");
     playersForm.style.display = "none";
-    playerXInfo.textContent = `X (${player1.value})`;
-    playerOInfo.textContent = `O (${player2.value})`;
+    playerXInfo.textContent = `X (${playerXName})`;
+    playerOInfo.textContent = `O (${playerOName})`;
+
+    Game.players.playerX = playerXName;
+    Game.players.playerO = playerOName;
 
     gameInfo.style.display = "grid";
     gameboard.style.display = "grid";
     gameStats.style.display = "grid";
     renderGameboard();
   } else {
-    player1.value === "" ? (player1.style.borderColor = "red") : "";
-    player2.value === "" ? (player2.style.borderColor = "red") : "";
+    playerX.value === "" ? (playerX.style.borderColor = "red") : "";
+    playerO.value === "" ? (playerO.style.borderColor = "red") : "";
   }
-});
+}
 
 function renderGameboard() {
   gameboard.innerHTML = "";
@@ -58,8 +147,24 @@ function renderGameboard() {
 
     gameboard.appendChild(squareElement);
   });
+  // Checks if game is over
+  if (finishedGame) {
+    // Checks if there was a winner
+    if (winRow) {
+      console.log(winRow);
+      // Change background for the winning row
+      winRow.forEach((tileNumber) => {
+        const tileDiv = document.getElementById(`tile_${tileNumber}`);
+        let color;
+        Game.turns % 2 == 0
+          ? (color = "var(--o-color)")
+          : (color = "var(--x-color)");
+        tileDiv.style.backgroundColor = color;
+        tileDiv.style.color = "#24353f";
+      });
+    }
+  }
 }
-
 function playSymbol() {
   if (!this.textContent && !finishedGame) {
     const indexPlacement = this.id.substring(5, 6);
@@ -75,24 +180,27 @@ function playSymbol() {
     playerTurn.classList.toggle("symbols--o", !isSymbolX);
 
     Game.gameboard[indexPlacement] = symbol;
+
     Game.turns++;
     if (
       Game.gameboard[0] == Game.gameboard[3] &&
       Game.gameboard[3] == Game.gameboard[6]
     ) {
     }
-    if (checkWin(Game.gameboard)) {
-      console.log("VINNARE");
-      console.log(symbol);
+    if (checkWin()) {
       registerWin(symbol);
+      const winBanner = document.getElementById("winBanner");
+      const winnerSymbol = document.getElementById("winnerSymbol");
+      winnerSymbol.textContent = symbol;
+      winBanner.style.display = "flex";
     }
     if (checkTie()) {
       finishedGame = true;
       Game.results.tie++;
       tiesValue.textContent = Game.results.tie;
     }
+    localStorage.setItem("Game", JSON.stringify(Game));
     renderGameboard();
-    console.log(Game);
   }
 }
 function checkTie() {
@@ -102,7 +210,8 @@ function checkTie() {
   });
   return tie;
 }
-function checkWin(gameboard) {
+function checkWin() {
+  const gameboard = Game.gameboard;
   const winConditions = [
     [0, 1, 2], // Horizontal lines
     [3, 4, 5], // Horizontal lines
@@ -122,23 +231,23 @@ function checkWin(gameboard) {
       gameboard[a] === gameboard[c]
     ) {
       console.log(winConditions[index]);
+      winRow = winConditions[index];
       return true; // We found a winning combination
     }
   }
+  winRow = "";
   return false; // No winning combination found
 }
 
 function registerWin(symbol) {
-  const playerXValue = document.getElementById("playerXValue");
-  const playerOValue = document.getElementById("playerOValue");
   finishedGame = true;
-  symbol === "X" ? Game.results.player1++ : Game.results.player2++;
-  playerXValue.textContent = Game.results.player1;
-  playerOValue.textContent = Game.results.player2;
+  symbol === "X" ? Game.results.playerX++ : Game.results.playerO++;
+  playerXValue.textContent = Game.results.playerX;
+  playerOValue.textContent = Game.results.playerO;
 }
 
-checkValue(player1);
-checkValue(player2);
+checkValue(playerX);
+checkValue(playerO);
 function checkValue(player) {
   player.addEventListener("keyup", () => {
     player.value === ""
@@ -148,13 +257,11 @@ function checkValue(player) {
 }
 
 function resetGame() {
-  const tiesValue = document.getElementById("tiesValue");
   if (finishedGame) {
     Game.gameboard = ["", "", "", "", "", "", "", "", ""];
     finishedGame = false;
     renderGameboard();
   } else {
-    console.log("Du är inte klar än");
     restartGame.animate(
       [
         // keyframes
@@ -172,5 +279,3 @@ function resetGame() {
     );
   }
 }
-
-renderGameboard();
