@@ -63,22 +63,25 @@
     </div>
 
     <section id="gameStats" class="game-stats">
-      <div class="game-stats__player-x">
+      <div class="game-stats__player-x" id="gameStatsPlayerX">
         <div id="playerXInfo">X ()</div>
         <span class="game-stats__value" id="playerXValue">0</span>
       </div>
-      <div class="game-stats__player-ties">
+      <div class="game-stats__player-ties" id="gameStatsTie">
         <div>TIES</div>
         <span class="game-stats__value" id="tiesValue">0</span>
       </div>
-      <div class="game-stats__player-o">
+      <div class="game-stats__player-o" id="gameStatsPlayerO">
         <div id="playerOInfo">O ()</div>
         <span class="game-stats__value" id="playerOValue">0</span>
       </div>
     </section>
     <section id="winBanner" class="win-banner">
-      <h3>YOU WON!</h3>
-      <h2><span id="winnerSymbol">X</span> TAKES THE ROUND</h2>
+      <h3 class="win-banner__win-message" id="winMessage">YOU WON!</h3>
+      <h2 class="win-banner__win-player" id="winPlayer">
+        <span id="winSymbol" class="win-banner__win-symbol">X</span> TAKES THE
+        ROUND
+      </h2>
       <aside class="win-banner__button-container">
         <button
           id="quitGame"

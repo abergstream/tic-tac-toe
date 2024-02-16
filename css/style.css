@@ -8,6 +8,9 @@
 }
 * {
   box-sizing: border-box;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 html {
@@ -125,9 +128,11 @@ body {
   font-size: 2rem;
   border-radius: 1rem;
   font-weight: bold;
+  text-align: center;
   &::placeholder {
     color: rgba(0, 0, 0, 0.3);
     opacity: 1; /* Firefox */
+    text-align: center;
   }
 
   &::-ms-input-placeholder {
@@ -204,15 +209,18 @@ body {
   transform: translateY(-50%);
   width: 100%;
   height: 300px;
-  background-color: rgba(35, 53, 64, 0.9);
+  background-color: rgba(35, 53, 64, 0.8);
   box-shadow: 4px 4px 10px #000;
   display: none;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  backdrop-filter: blur(10px);
 }
 .win-banner__button-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1.5rem;
 }
 .win-banner__button {
@@ -233,6 +241,24 @@ body {
   background-color: var(--o-color);
   box-shadow: 0 4px #bc8e00;
 }
+.win-banner__win-message {
+  margin: 0rem;
+  font-size: 1.5rem;
+  color: #cacaca;
+  font-weight: 600;
+}
+.win-banner__win-player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0rem;
+}
+.win-banner__win-symbol {
+  font-size: 10rem;
+}
 @media screen and (max-width: 500px) {
   body {
     margin: 2rem;
@@ -242,5 +268,19 @@ body {
   }
   .gameboard__tile {
     font-size: 7rem;
+  }
+
+  .win-banner {
+    height: 200px;
+  }
+  .win-banner__win-player {
+    gap: 2rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 1rem;
+    /* padding: 1rem; */
+  }
+  .win-banner__win-symbol {
+    font-size: 5rem;
   }
 }

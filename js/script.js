@@ -1,8 +1,9 @@
 // TODO
-// Lägga in rätt färg på knappen i winBanner
-// Styla winBanner
-// Lägga till winBanner för TIED-GAME
-// Se över resetknappen
+//////// Lägga in rätt färg på knappen i winBanner
+//////// Styla winBanner
+//// Lägga till winBanner för TIED-GAME
+//// Ej winBanner för Tied game
+//// Se över resetknappen
 
 // Sist av allt
 // Se över responsivitet
@@ -19,7 +20,7 @@ const tiesValue = document.getElementById("tiesValue");
 const playerXValue = document.getElementById("playerXValue");
 const playerOValue = document.getElementById("playerOValue");
 const quitGame = document.getElementById("quitGame");
-const nextRound = document.getElementById("document");
+const nextRound = document.getElementById("nextRound");
 document.getElementById("quitGame").addEventListener("click", () => {
   winBanner.style.display = "none";
   gameInfo.style.display = "none";
@@ -190,14 +191,34 @@ function playSymbol() {
     if (checkWin()) {
       registerWin(symbol);
       const winBanner = document.getElementById("winBanner");
-      const winnerSymbol = document.getElementById("winnerSymbol");
-      winnerSymbol.textContent = symbol;
+      const winSymbol = document.getElementById("winSymbol");
+      const winMessage = document.getElementById("winMessage");
+      const winPlayer = document.getElementById("winPlayer");
+      winSymbol.textContent = symbol;
+      if (symbol == "X") {
+        nextRound.classList.remove("win-banner_o-win");
+        nextRound.classList.add("win-banner_x-win");
+
+        winPlayer.style.color = "var(--x-color)";
+        winMessage.textContent = `${Game.players.playerX} WON!`;
+        highlightElement("gameStatsPlayerX", "var(--x-color)", 1500, 1);
+      } else {
+        nextRound.classList.remove("win-banner_x-win");
+        nextRound.classList.add("win-banner_o-win");
+
+        winPlayer.style.color = "var(--o-color)";
+        winMessage.textContent = `${Game.players.playerO} WON!`;
+        highlightElement("gameStatsPlayerO", "var(--o-color)", 1500, 1);
+      }
       winBanner.style.display = "flex";
     }
     if (checkTie()) {
       finishedGame = true;
       Game.results.tie++;
       tiesValue.textContent = Game.results.tie;
+      highlightElement("gameStatsTie", "#abbec9", 1500, 1);
+      highlightElement("restartGame", "#abbec9", 1500, 1);
+      restartGame.style.boxShadow = "0 0 3rem #abbec9";
     }
     localStorage.setItem("Game", JSON.stringify(Game));
     renderGameboard();
@@ -210,6 +231,25 @@ function checkTie() {
   });
   return tie;
 }
+
+function highlightElement(elementID, color, delay, times) {
+  const element = document.getElementById(elementID);
+  // element.style.border = `1px solid ${color}`;
+  element.animate(
+    [
+      // keyframes
+      { boxShadow: `0 0 0rem ${color}` },
+      { boxShadow: `0 0 4rem ${color}` },
+      { boxShadow: `0 0 0rem ${color}` },
+    ],
+    {
+      // timing options
+      duration: delay,
+      iterations: times,
+    }
+  );
+}
+
 function checkWin() {
   const gameboard = Game.gameboard;
   const winConditions = [
@@ -261,6 +301,7 @@ function resetGame() {
     Game.gameboard = ["", "", "", "", "", "", "", "", ""];
     finishedGame = false;
     renderGameboard();
+    restartGame.style.boxShadow = "";
   } else {
     restartGame.animate(
       [
